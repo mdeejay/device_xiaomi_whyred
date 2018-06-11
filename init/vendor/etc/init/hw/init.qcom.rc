@@ -43,8 +43,7 @@ on init
     mkdir /persist 0771 root system
     mkdir /persistbak 0771 root system
 
-    # Support legacy paths
-    symlink /sdcard /mnt/sdcard
+    # Support legacy path
     symlink /sdcard /storage/sdcard0
 
     # Create cgroup mount point for memory
@@ -56,7 +55,6 @@ on init
 
 on post-fs
     chmod 0755 /sys/kernel/debug/tracing
-    insmod /system/lib/modules/exfat.ko
 
 on early-boot
     # set RLIMIT_MEMLOCK to 64MB
@@ -82,7 +80,7 @@ on boot
     chown system system /sys/kernel/debug/msm_core/enable
     chown system system /sys/kernel/debug/msm_core/ptable
     chown system system /sys/kernel/boot_slpi/ssr
-    chown system system /sys/module/radio_iris_transport/parameters/fmsmd_set
+	chown system system /sys/module/radio_iris_transport/parameters/fmsmd_set
     chmod 0660 /sys/module/bluetooth_power/parameters/power
     chmod 0660 /sys/module/hci_smd/parameters/hcismd_set
     chmod 0660 /sys/module/radio_iris_transport/parameters/fmsmd_set
@@ -169,13 +167,21 @@ on boot
 
     # Set the console loglevel to < KERN_INFO
     # Set the default message loglevel to KERN_INFO
-    write /proc/sys/kernel/printk "6 6 1 7"
+     write /proc/sys/kernel/printk "6 6 1 7"
 
     # Allow access for CCID command/response timeout configuration
     chown system system /sys/module/ccid_bridge/parameters/bulk_msg_timeout
 
     # bond0 used by FST Manager
     chown wifi wifi /sys/class/net/bond0/bonding/queue_id
+	
+    # Notification LED
+    chown system system /sys/class/leds/red/blink
+    chown system system /sys/class/leds/green/blink
+    chown system system /sys/class/leds/blue/blink
+    chown system system /sys/class/leds/red/brightness
+    chown system system /sys/class/leds/green/brightness
+    chown system system /sys/class/leds/blue/brightness
 
     # Allow access to emmc rawdump block partition and dload sysfs node
     chown root system /dev/block/bootdevice/by-name/rawdump -p /dev/block/
@@ -217,9 +223,6 @@ on boot
 
     # Create vpp directory
     mkdir /persist/vpp 0770 media media
-
-    # load WIGIG platform driver
-    insmod /vendor/lib/modules/msm_11ad_proxy.ko
 
 # msm specific files that need to be created on /data
 on post-fs-data
@@ -370,7 +373,7 @@ on post-fs-data
 
     #Create a folder for SRS to be able to create a usercfg file
     mkdir /data/data/media 0770 media media
-
+	
     #Create FM dir for patchdownloader
     mkdir /data/misc/fm 0770 system system
     chmod 0770 /data/misc/fm
@@ -544,7 +547,7 @@ on property:bluetooth.startbtlogger=true
 
 on property:bluetooth.startbtlogger=false
     stop bt_logger
-
+	
 service qcom-c_core-sh  /vendor/bin/init.qcom.class_core.sh
     class core
     user root
@@ -563,7 +566,7 @@ on property:vold.decrypt=trigger_restart_framework
 
 on property:persist.env.fastdorm.enabled=true
     setprop persist.radio.data_no_toggle 1
-
+	
 service cnd /system/vendor/bin/cnd
     class main
     user system
@@ -783,7 +786,6 @@ service wigignpt /vendor/bin/wigignpt
     disabled
 
 on property:persist.vendor.wigig.enable=1
-    insmod /vendor/lib/modules/wil6210.ko alt_ifname=1
     start wigighalsvc
 
 on property:persist.vendor.wigig.npt.enable=1
@@ -917,10 +919,6 @@ service loc_launcher /system/vendor/bin/loc_launcher
     class late_start
     group gps inet diag wifi
 
-on property:crypto.driver.load=1
-     insmod /system/lib/modules/qce.ko
-     insmod /system/lib/modules/qcedev.ko
-
 service drmdiag /system/vendor/bin/drmdiagapp
     class late_start
      user root
@@ -942,7 +940,7 @@ service sensor-sh /vendor/bin/init.qcom.sensors.sh
     class core
     user root
     oneshot
-
+	
 service crashdata-sh /vendor/bin/init.qcom.crashdata.sh
     class late_start
     user root
@@ -953,7 +951,7 @@ service qcom-post-boot /vendor/bin/init.qcom.post_boot.sh
     user root
     disabled
     oneshot
-
+	
 service wifi-sdio-on /vendor/bin/init.qcom.sdio.sh
     class late_start
     group wifi inet
@@ -1119,7 +1117,7 @@ service vendor.msm_irqbal_lb /vendor/bin/msm_irqbalance -f /system/vendor/etc/ms
     user root
     group root
     disabled
-
+	
 service vendor.msm_irqbl_sdm630 /vendor/bin/msm_irqbalance -f /system/vendor/etc/msm_irqbalance_sdm630.conf
     class core
     user root

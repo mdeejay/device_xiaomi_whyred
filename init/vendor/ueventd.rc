@@ -300,3 +300,5 @@
 
 # Kmsg device
 /dev/kmsg                                               0620   root       system
+
+/sys/class/input/input2 		wake_gesture     0644    system  system
