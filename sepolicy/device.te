@@ -1,0 +1,5 @@
+# Fingerprint
+type fingerprintd_device, dev_type;
+
+# IR
+type lirc_device, dev_type;
