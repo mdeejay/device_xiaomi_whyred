@@ -119,6 +119,10 @@ on boot
 
     # Synaptics DSX RMI Node
     chown system system /sys/devices/soc/c175000.i2c/i2c-1/1-0020/input/input2/wake_gesture
+	
+#Load WLAN driver
+   chown wifi wifi /sys/module/wlan/parameters/fwpath
+   setprop wlan.driver.status "ok"
 
 #Peripheral manager
 service per_mgr /system/vendor/bin/pm-service
