@@ -13,7 +13,7 @@
 /data/fpc/test.db.bak				u:object_r:fingerprintd_data_file:s0
 
 # Block devices
-/dev/block/bootdevice/by-name/persist  		u:object_r:persist_block_device:s0
+/dev/block/mmcblk0p53  		u:object_r:persist_block_device:s0
 
 # Camera
 /system/vendor/bin/mm-qcamera-daemon		u:object_r:mm-qcamerad_exec:s0

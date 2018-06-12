@@ -18,3 +18,4 @@ add_service(hal_fingerprint_default, goodixfingerprintd_service)
 dontaudit hal_fingerprint_default storage_file:dir search;
 dontaudit hal_fingerprint_default mnt_user_file:dir search;
 dontaudit hal_fingerprint_default rootfs:dir { read open };
+set_prop(hal_fingerprint_default, fingerprint_prop);
