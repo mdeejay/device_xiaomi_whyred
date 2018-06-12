@@ -1,0 +1,14 @@
+[
+  {
+    "remote":      "github",
+    "repository":  "mdeejay/kernel_xiaomi_whyred",
+    "target_path": "kernel/xiaomi/whyred",
+    "branch":      "aligot-release"
+  },
+  {
+    "remote":      "github",
+    "repository":  "mdeejay/vendor_xiaomi",
+    "target_path": "vendor/xiaomi"
+    "branch":      "aligot-release"
+  }
+]

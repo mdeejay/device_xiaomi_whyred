@@ -21,6 +21,7 @@
 # definition file).
 #
 
+$(call inherit-product, $(SRC_TARGET_DIR)/product/languages_full.mk)
 # Inherit proprietary files
 $(call inherit-product, vendor/xiaomi/whyred/whyred-vendor.mk)
 
@@ -47,6 +48,7 @@ PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/android.hardware.bluetooth.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.bluetooth.xml \
     frameworks/native/data/etc/android.hardware.camera.flash-autofocus.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.camera.flash-autofocus.xml \
     frameworks/native/data/etc/android.hardware.camera.front.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.camera.front.xml \
+    frameworks/native/data/etc/android.hardware.camera.front.xml:system/etc/permissions/android.hardware.camera.front.xml \
     frameworks/native/data/etc/android.hardware.camera.full.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.camera.full.xml \
     frameworks/native/data/etc/android.hardware.camera.raw.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.camera.raw.xml \
     frameworks/native/data/etc/android.hardware.fingerprint.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.fingerprint.xml \
@@ -77,6 +79,10 @@ PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/android.hardware.vulkan.level-0.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.vulkan.level-0.xml \
     frameworks/native/data/etc/android.hardware.vulkan.version-1_0_3.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.vulkan.version-1_0_3.xml \
     frameworks/native/data/etc/android.hardware.ethernet.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.ethernet.xml
+	
+# Additional native libraries
+PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/configs/public.libraries.txt:$(TARGET_COPY_OUT_VENDOR)/etc/public.libraries.txt
 
 # Audio
 PRODUCT_PACKAGES += \
@@ -133,6 +139,10 @@ PRODUCT_COPY_FILES += \
 PRODUCT_PACKAGES += \
     android.hardware.bluetooth@1.0-service \
     libbt-vendor
+	
+# Camera-face detection
+PRODUCT_PACKAGES += \
+    com.qualcomm.qti.camera
 
 # Connectivity Engine support (CNE)
 PRODUCT_PACKAGES += \

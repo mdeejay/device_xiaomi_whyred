@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2018 The LineageOS Project
+# Copyright (C) 2017 The LineageOS Project
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -18,21 +18,22 @@
 $(call inherit-product, $(SRC_TARGET_DIR)/product/core_64_bit.mk)
 $(call inherit-product, $(SRC_TARGET_DIR)/product/full_base_telephony.mk)
 
-# Inherit some common Lineage stuff
+# Inherit from whyred device
+$(call inherit-product, device/xiaomi/whyred/device.mk)
+
+# Inherit some common Potato stuff.
 $(call inherit-product, vendor/potato/config/common_full_phone.mk)
 
-# Inherit from whyred device
-$(call inherit-product, $(LOCAL_PATH)/device.mk)
-
-PRODUCT_BRAND := Xiaomi
+# Device identifier. This must come after all inclusions
+TARGET_VENDOR := Xiaomi
 PRODUCT_DEVICE := whyred
-PRODUCT_MANUFACTURER := Xiaomi
 PRODUCT_NAME := potato_whyred
-PRODUCT_MODEL := Redmi Note 5 Pro
+PRODUCT_BRAND := Xiaomi
+PRODUCT_MODEL := Redmi Note 5
+PRODUCT_MANUFACTURER := Xiaomi
+BOARD_VENDOR := Xiaomi
 
 PRODUCT_GMS_CLIENTID_BASE := android-xiaomi
-
-TARGET_VENDOR_PRODUCT_NAME := whyred
 
 PRODUCT_BUILD_PROP_OVERRIDES += \
     PRIVATE_BUILD_DESC="whyred-user 8.1.0 OPM1.171019.011 8.5.10 release-keys" \
