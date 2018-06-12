@@ -22,6 +22,8 @@
 # definition file).
 #
 
+BOARD_VENDOR := xiaomi
+
 DEVICE_PATH := device/xiaomi/whyred
 
 # Bootloader
