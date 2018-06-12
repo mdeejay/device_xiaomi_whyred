@@ -237,7 +237,7 @@ TARGET_RECOVERY_FSTAB := $(DEVICE_PATH)/recovery/fstab.qcom
 BOARD_HAS_LARGE_FILESYSTEM := true
 
 # Root Folders
-BOARD_ROOT_EXTRA_FOLDERS := dsp firmware persist
+BOARD_ROOT_EXTRA_FOLDERS := bt_firmware dsp firmware persist
 
 # RIL
 TARGET_RIL_VARIANT := caf
