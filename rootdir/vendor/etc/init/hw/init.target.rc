@@ -37,7 +37,6 @@ on init
     write /dev/stune/top-app/schedtune.sched_boost_no_override 1
     write /dev/stune/schedtune.colocate 0
     write /dev/stune/background/schedtune.colocate 0
-    write /dev/stune/system-background/schedtune.colocate 0
     write /dev/stune/foreground/schedtune.colocate 0
     write /dev/stune/top-app/schedtune.colocate 1
 
@@ -61,21 +60,11 @@ on fs
 
     write /sys/kernel/boot_adsp/boot 1
     chown system system /dev/goodix_fp
-    #chmod 0644 /dev/goodix_fp
 
 on post-fs
     start qseecomd
     exec - system system -- /vendor/bin/init.qti.qseecomd.sh
     write /dev/ipa 1
-
-    # We chown/chmod /cust again so because mount is run as root + defaults
-    chown system system /cust
-    chmod 0771 /cust
-    # We restorecon /cust in case the cust partition has been reset.
-    restorecon_recursive /cust
-
-    # create the lost+found directories, so as to enforce our permissions
-    mkdir /cust/lost+found 0770 root root
 
 on init
     write /sys/module/qpnp_rtc/parameters/poweron_alarm 1
@@ -89,7 +78,6 @@ on post-fs-data
     mkdir /persist/qti_fp 0700 system system
     mkdir /data/misc/seemp 0700 system system
     mkdir /data/misc/tloc 0700 system drmrpc
-    start pa-cal-load
 
 on boot
     start rmt_storage
@@ -156,16 +144,6 @@ service thermal-engine /system/vendor/bin/thermal-engine
    socket thermal-recv-passive-client stream 0666 system system
    socket thermal-send-rule stream 0660 system system
    group root
-
-service time_daemon /system/vendor/bin/time_daemon
-   class late_start
-   user root
-   group root
-
-service adsprpcd_root /system/bin/adsprpcd
-   class main
-   user media
-   group media
 
 service adsprpcd /system/vendor/bin/adsprpcd audiopd
    class main
@@ -270,147 +248,6 @@ service hvdcp_opti /system/vendor/bin/hvdcp_opti
      user root
      group system wakelock
 
-service smcinvoked /system/bin/smcinvoked
-   class main
-   user system
-   group system
-
-# smart pa cal     tsx 08/26
-service pa-cal-load /system/vendor/bin/smart-pa-cal -load
-    user root
-    group root
-    disabled
-    oneshot
-
-# smart pa cal     tsx 08/26
-service smart-pa-cal /system/vendor/bin/smart-pa-cal -t 25 -c /system/vendor/etc/speaker.ftcfg -v -u
-    user root
-    group root
-    disabled
-    oneshot
-
-on property:sys.pa-cal=0
-    stop smart-pa-cal
-
-on property:sys.pa-cal=1
-    start smart-pa-cal
-
-# audio loopback test begin    tsx 08/26
-service loopback_spk1 /system/vendor/bin/loopback.sh 1 1
-    user root
-    group root
-    disabled
-    oneshot
-	
-service loopback_spk0 /system/vendor/bin/loopback.sh 1 0
-    user root
-    group root
-    disabled
-    oneshot
-	
-service loopback_rec1 /system/vendor/bin/loopback.sh 2 1
-    user root
-    group root
-    disabled
-    oneshot
-	
-service loopback_rec0 /system/vendor/bin/loopback.sh 2 0
-    user root
-    group root
-    disabled
-    oneshot
-	
-service loopback_hand1 /system/vendor/bin/loopback.sh 3 1
-    user root
-    group root
-    disabled
-    oneshot
-	
-service loopback_hand0 /system/vendor/bin/loopback.sh 3 0
-    user root
-    group root
-    disabled
-    oneshot
-	
-service loopback_sec1 /system/vendor/bin/loopback.sh 4 1
-    user root
-    group root
-    disabled
-    oneshot
-	
-service loopback_sec0 /system/vendor/bin/loopback.sh 4 0
-    user root
-    group root
-    disabled
-    oneshot
-
-service spk_playback1 /system/vendor/bin/loopback.sh 5 1
-    user root
-    group root
-    disabled
-    oneshot
-	
-service spk_playback0 /system/vendor/bin/loopback.sh 5 0
-    user root
-    group root
-    disabled
-    oneshot
-
-on property:sys.loopback-spk=1
-    start loopback_spk1
-	
-on property:sys.loopback-spk=0
-    start loopback_spk0
-	
-on property:sys.loopback-rec=1
-    start loopback_rec1
-	
-on property:sys.loopback-rec=0
-    start loopback_rec0
-	
-on property:sys.loopback-mic1=1
-    start loopback_hand1
-	
-on property:sys.loopback-mic1=0
-    start loopback_hand0
-	
-on property:sys.loopback-mic2=1
-    start loopback_sec1
-	
-on property:sys.loopback-mic2=0
-    start loopback_sec0
-
-on property:sys.spk-playback=1
-    start spk_playback1
-	
-on property:sys.spk-playback=0
-    start spk_playback0
-
-service tinyhostless_spk /system/vendor/bin/tinyhostless -D 0 -P 35 -C 11 -p 8 -n 2 -c 1 -r 48000
-    user root
-    group root
-    disabled
-    oneshot
-
-service tinyhostless /system/vendor/bin/tinyhostless -D 0 -P 5 -C 11 -p 8 -n 2 -c 1 -r 48000
-    user root
-    group root
-    disabled
-    oneshot
-
-on property:sys.tinyhostless=0
-    stop tinyhostless 
-
-on property:sys.tinyhostless=1
-    start tinyhostless
-
-on property:sys.tinyhostless-spk=0
-    stop tinyhostless_spk
-
-on property:sys.tinyhostless-spk=1
-    start tinyhostless_spk
-	
-#audio loopback test end
 on property:persist.sys.display_srgb=1
     write /sys/class/graphics/fb0/msm_fb_srgb 1
 
@@ -428,32 +265,6 @@ on property:sys.ad.enable=on
 
 on property:sys.ad.enable=off
     start adswitch
-
-on property:sys.dynamic_debug=1
-   write /sys/kernel/debug/dynamic_debug/control "file q6afe.c +p" 
-   write /sys/kernel/debug/dynamic_debug/control "file q6adm.c +p" 
-   write /sys/kernel/debug/dynamic_debug/control "file msm-pcm-routing-v2.c +p" 
-   write /sys/kernel/debug/dynamic_debug/control "file msm-dai-q6-v2.c +p" 
-   write /sys/kernel/debug/dynamic_debug/control "file soc-core.c +p" 
-   write /sys/kernel/debug/dynamic_debug/control "file soc-dapm.c +p" 
-   write /sys/kernel/debug/dynamic_debug/control "file sdm660-internal.c +p" 
-   write /sys/kernel/debug/dynamic_debug/control "file sdm660-common.c +p" 
-   write /sys/kernel/debug/dynamic_debug/control "file msm-analog-cdc.c +p" 
-   write /sys/kernel/debug/dynamic_debug/control "file msm-digital-cdc.c +p"
-   write /sys/kernel/debug/dynamic_debug/control "file wcd-mbhc-v2.c +p" 
-
-on property:sys.dynamic_debug=0
-   write /sys/kernel/debug/dynamic_debug/control "file q6afe.c -p" 
-   write /sys/kernel/debug/dynamic_debug/control "file q6adm.c -p" 
-   write /sys/kernel/debug/dynamic_debug/control "file msm-pcm-routing-v2.c -p" 
-   write /sys/kernel/debug/dynamic_debug/control "file msm-dai-q6-v2.c -p" 
-   write /sys/kernel/debug/dynamic_debug/control "file soc-core.c -p" 
-   write /sys/kernel/debug/dynamic_debug/control "file soc-dapm.c -p" 
-   write /sys/kernel/debug/dynamic_debug/control "file sdm660-internal.c -p" 
-   write /sys/kernel/debug/dynamic_debug/control "file sdm660-common.c -p" 
-   write /sys/kernel/debug/dynamic_debug/control "file msm-analog-cdc.c -p" 
-   write /sys/kernel/debug/dynamic_debug/control "file msm-digital-cdc.c -p"
-   write /sys/kernel/debug/dynamic_debug/control "file wcd-mbhc-v2.c -p"
 
 on property:persist.sys.display_ce=4
     write /sys/class/graphics/fb0/msm_fb_ce 1

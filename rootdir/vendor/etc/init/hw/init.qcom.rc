@@ -26,7 +26,6 @@
 #
 
 import /vendor/etc/init/hw/init.qcom.usb.rc
-import /vendor/etc/init/hw/init.msm.usb.configfs.rc
 import /vendor/etc/init/hw/init.target.rc
 
 on early-init
@@ -77,10 +76,8 @@ on boot
     chown system system /sys/kernel/debug/msm_core/enable
     chown system system /sys/kernel/debug/msm_core/ptable
     chown system system /sys/kernel/boot_slpi/ssr
-	chown system system /sys/module/radio_iris_transport/parameters/fmsmd_set
     chmod 0660 /sys/module/bluetooth_power/parameters/power
     chmod 0660 /sys/module/hci_smd/parameters/hcismd_set
-    chmod 0660 /sys/module/radio_iris_transport/parameters/fmsmd_set
     chmod 0660 /sys/class/rfkill/rfkill0/state
     chmod 0660 /proc/bluetooth/sleep/proto
     chown bluetooth net_bt /dev/ttyHS0
@@ -433,12 +430,6 @@ service iop /system/vendor/bin/iop
     disabled
     socket iop seqpacket 0666 root system
 
-service qcomsysd /system/vendor/bin/qcom-system-daemon
-    class main
-    user root
-    group root diag
-    disabled
-
 on property:persist.vendor.qcomsysd.enabled=1
     start qcomsysd
 
@@ -493,21 +484,6 @@ on property:sys.boot_completed=1
 on property:persist.debug.trace=1
     mkdir /data/core 0777 root root
     write /proc/sys/kernel/core_pattern "/data/core/%E.%p.%e"
-
-#zhuxiaomin @ 20170928
-service iwprivftm /system/bin/sh /system/etc/iwpriv.agent.sh
-    oneshot
-    disabled
-on property:persist.sys.iwpriv=1
-    start iwprivftm
-
-#++++>
-on property:sys.ptt_socket_app=1
-    start ptt_ffbm
-
-on property:sys.ftmd=1
-    start ftmd
-#<++++  zhuxiaomin @ 20170928    Add for WiFi & BT FFBM test.
 
 on property:init.svc.wpa_supplicant=stopped
     stop dhcpcd
@@ -675,7 +651,7 @@ service qti /system/vendor/bin/qti
     disabled
 
 service sensors /vendor/bin/sensors.qcom
-    class core
+    class main
     user root
     group root
     disabled
@@ -715,7 +691,7 @@ service wpa_supplicant /vendor/bin/hw/wpa_supplicant \
     -I/vendor/etc/wifi/p2p_supplicant_overlay.conf -N \
     -iwlan0 -Dnl80211 -c/data/misc/wifi/wpa_supplicant.conf \
     -I/vendor/etc/wifi/wpa_supplicant_overlay.conf \
-    -O/data/misc/wifi/sockets -puse_p2p_group_interface=1 -dd \
+    -O/data/misc/wifi/sockets -puse_p2p_group_interface=1 \
     -e/data/misc/wifi/entropy.bin -g@android:wpa_wlan0
 #   we will start as root and wpa_supplicant will switch to user wifi
 #   after setting up the capabilities required for WEXT
@@ -729,7 +705,7 @@ service wpa_supplicant /vendor/bin/hw/wpa_supplicant \
 service vendor.wigig_supplicant /vendor/bin/hw/wpa_supplicant \
     -iwigig0 -Dnl80211 -c/data/vendor/wifi/wigig_supplicant.conf \
     -m/data/vendor/wifi/wigig_p2p_supplicant.conf \
-    -O/data/vendor/wifi/wigig_sockets -dd \
+    -O/data/vendor/wifi/wigig_sockets \
     -e/data/vendor/wifi/wigig_entropy.bin -g@android:wpa_wigig0 \
     -S wigigsvc
     #   we will start as root and wpa_supplicant will switch to user wifi
@@ -1071,71 +1047,16 @@ on property:persist.sys.mdlog.enable=true
 on property:persist.sys.mdlog.enable=false
     start diag_mdlog_stop
 
-service qlogd /system/xbin/qlogd
-    socket qlogd stream 0662 system system
-    class main
-    disabled
-on property:persist.sys.qlogd=1
-    start qlogd
-on property:persist.sys.qlogd=0
-    stop qlogd
-
 service vm_bms /vendor/bin/vm_bms
     user root
     group root
     disabled
 
-service vendor.msm_irqbalance /vendor/bin/msm_irqbalance -f /system/vendor/etc/msm_irqbalance.conf
+service msm_irqbalance /vendor/bin/msm_irqbalance -f /vendor/etc/msm_irqbalance.conf
     class core
     user root
     group root
     disabled
-
-service vendor.msm_irqbal_lb /vendor/bin/msm_irqbalance -f /system/vendor/etc/msm_irqbalance_little_big.conf
-    class core
-    user root
-    group root
-    disabled
-	
-service vendor.msm_irqbl_sdm630 /vendor/bin/msm_irqbalance -f /system/vendor/etc/msm_irqbalance_sdm630.conf
-    class core
-    user root
-    group root
-    disabled
-
-# service for USERDEBUG
-service vendor.LKCore-dbg /vendor/bin/LKCore
-    class late_start
-    oneshot
-    disabled
-    user root
-    group root system log diag net_raw
-
-service sdlog /system/bin/sdlog
-    class late_start
-    user root
-    disabled
-    oneshot
-
-on property:sys.logd_t2.enable=1
-    start sdlog
-
-on property:sys.logd.enable=1
-    start sdlog
-
-on property:persist.service.logd.enable=1
-    start sdlog
-on property:persist.service.logd.enable=0
-   setprop vendor.sdlog.run 0
-   stop sdlog
-
-# service for USER
-service vendor.LKCore-rel /vendor/bin/LKCore
-    class late_start
-    oneshot
-    disabled
-    user system
-    group system log diag
 
 on charger
     setprop persist.sys.usb.config mass_storage
@@ -1164,11 +1085,6 @@ service qdmastatsd /system/vendor/bin/qdmastatsd
     user system
     group readproc system net_bw_stats radio
 
-service vppservice /vendor/bin/vppservice
-    class main
-    user media
-    group camera
-
 # Set vendor-ril lib path based on Meta version
 on property:vendor.rild.libpath=*
     setprop rild.libpath ${vendor.rild.libpath}
@@ -1177,44 +1093,6 @@ service seemp_healthd /vendor/bin/seemp_healthd
     class late_start
     user system
     group system
-
-# blueduttest service for RF BT test.
-service blueduttest /vendor/bin/sh /vendor/bin/bluedut.sh
-    class late_start
-    user root
-    group root
-    disabled
-    oneshot
-
-# openwifi service for RF wifi test.
-service openwifi /system/bin/sh /vendor/bin/wifitest.sh
-    class late_start
-    user root 
-    disabled
-    oneshot
-
-# closewifi service for RF wifi test.
-service closewifi /system/bin/sh /vendor/bin/wifitest_close.sh
-    class late_start
-    user root 
-    disabled
-    oneshot
-
-#for wifi myftm test
-service myftmftm /vendor/bin/sh /vendor/bin/myftm.agent.sh
-    oneshot
-    disabled
-on property:persist.sys.myftm=1
-    start myftmftm
-    
-#zhufanghua@longcheer.com
-service btclose /vendor/bin/sh /vendor/bin/bt_close.sh
-	user root
-	group root
-	oneshot
-	disabled
-on property:sys.closebt=1
-	start btclose
 
 service wdsdaemon /vendor/bin/wdsdaemon -su
 	user root
