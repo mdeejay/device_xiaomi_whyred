@@ -256,7 +256,7 @@ PRODUCT_COPY_FILES += \
 
 # Init
 PRODUCT_COPY_FILES += \
-    $(call find-copy-subdir-files,*,${LOCAL_PATH}/init/vendor,$(TARGET_COPY_OUT_VENDOR))
+    $(call find-copy-subdir-files,*,${LOCAL_PATH}/rootdir/vendor,$(TARGET_COPY_OUT_VENDOR))
 
 # IRQ
 PRODUCT_COPY_FILES += \

@@ -189,6 +189,8 @@ DEVICE_MATRIX_FILE := $(DEVICE_PATH)/compatibility_matrix.xml
 
 # Init
 TARGET_PLATFORM_DEVICE_BASE := /devices/soc/
+TARGET_INIT_VENDOR_LIB := libinit_whyred
+TARGET_RECOVERY_DEVICE_MODULES := libinit_whyred
 
 # Keystore
 TARGET_PROVIDES_KEYMASTER := true
