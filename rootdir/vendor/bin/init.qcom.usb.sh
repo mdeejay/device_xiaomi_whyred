@@ -348,45 +348,4 @@ case "$baseband" in
     ;;
 esac
 
-#
-# Add support for exposing lun0 as cdrom in mass-storage
-#
-cdromname="/system/etc/cdrom_install.iso"
-platformver=`cat /sys/devices/soc0/hw_platform`
-case "$target" in
-	"msm8226" | "msm8610" | "msm8916")
-		case $platformver in
-			"QRD")
-				echo "mounting usbcdrom lun"
-				echo $cdromname > /sys/class/android_usb/android0/f_mass_storage/rom/file
-				chmod 0444 /sys/class/android_usb/android0/f_mass_storage/rom/file
-				;;
-		esac
-		;;
-esac
-
-#
-# Initialize RNDIS Diag option. If unset, set it to 'none'.
-#
-diag_extra=`getprop persist.sys.usb.config.extra`
-if [ "$diag_extra" == "" ]; then
-	setprop persist.sys.usb.config.extra none
-fi
-
-# soc_ids for 8937
-if [ -f /sys/devices/soc0/soc_id ]; then
-	soc_id=`cat /sys/devices/soc0/soc_id`
-else
-	soc_id=`cat /sys/devices/system/soc/soc0/id`
-fi
-
-# enable rps cpus on msm8937 target
-setprop sys.usb.rps_mask 0
-case "$soc_id" in
-	"294" | "295")
-		setprop sys.usb.rps_mask 40
-	;;
-esac
-
-
 
