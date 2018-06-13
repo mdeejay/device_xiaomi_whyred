@@ -56,16 +56,24 @@
          backlight values for LUX levels between these control points.
          Must be overridden in platform specific overlays -->
     <integer-array name="config_autoBrightnessLevels">
-        <item>1</item> <!-- pitch black -->
-        <item>5</item> <!-- dark indoor -->
-        <item>10</item> <!-- twilight -->
-        <item>50</item> <!-- dim indoor -->
-        <item>100</item> <!-- home -->
-        <item>300</item> <!-- office -->
-        <item>500</item> <!-- sunrise -->
-        <item>1000</item> <!-- overcast -->
-        <item>3000</item> <!-- indirect sun -->
-        <item>10000</item> <!-- daylight -->
+        <item>6</item>
+        <item>9</item>
+        <item>14</item>
+        <item>20</item>
+        <item>30</item>
+        <item>46</item>
+        <item>68</item>
+        <item>103</item>
+        <item>154</item>
+        <item>231</item>
+        <item>346</item>
+        <item>519</item>
+        <item>778</item>
+        <item>1168</item>
+        <item>1752</item>
+        <item>2627</item>
+        <item>3941</item>
+        <item>8867</item>
     </integer-array>
 
     <!-- Array of output values for LCD backlight corresponding to the LUX values
@@ -74,27 +82,26 @@
          The brightness values must be between 0 and 255 and be non-decreasing.
          This must be overridden in platform specific overlays -->
     <integer-array name="config_autoBrightnessLcdBacklightValues">
-        <item>16</item>
-        <item>20</item>
-        <item>24</item>
-        <item>31</item>
-        <item>48</item>
-        <item>74</item>
-        <item>107</item>
+        <item>19</item>
+        <item>23</item>
+        <item>26</item>
+        <item>30</item>
+        <item>34</item>
+        <item>39</item>
+        <item>45</item>
+        <item>51</item>
+        <item>59</item>
+        <item>67</item>
+        <item>77</item>
+        <item>88</item>
+        <item>101</item>
+        <item>116</item>
+        <item>133</item>
         <item>152</item>
-        <item>194</item>
-        <item>254</item>
+        <item>174</item>
+        <item>199</item>
         <item>255</item>
     </integer-array>
-
-    <!-- Screen brightness used to dim the screen when the user activity
-         timeout expires.  May be less than the minimum allowed brightness setting
-         that can be set by the user. -->
-    <integer name="config_screenBrightnessDim">10</integer>
-
-    <!-- Default screen brightness setting.
-         Must be in the range specified by minimum and maximum. -->
-    <integer name="config_screenBrightnessSettingDefault">128</integer>
 
     <!-- Minimum screen brightness setting allowed by the power manager.
          The user is forbidden from setting the brightness below this level. -->
@@ -106,14 +113,7 @@
          brightness changes occur in response to an observed change in light level that exceeds the
          hysteresis threshold. -->
     <integer name="config_autoBrightnessBrighteningLightDebounce">2000</integer>
-    <integer name="config_autoBrightnessDarkeningLightDebounce">6000</integer>
-
-    <!-- The maximum range of gamma adjustment possible using the screen
-         auto-brightness adjustment setting. -->
-    <fraction name="config_autoBrightnessAdjustmentMaxGamma">200%</fraction>
-
-    <!-- Period of time in which to consider light samples in milliseconds. -->
-    <integer name="config_autoBrightnessAmbientLightHorizon">16000</integer>
+    <integer name="config_autoBrightnessDarkeningLightDebounce">4000</integer>
 
     <!-- If this is true, the screen will come on when you unplug usb/power/whatever. -->
     <bool name="config_unplugTurnsOnScreen">true</bool>
