@@ -261,5 +261,3 @@ persist.vendor.radio.snapshot_timer=5
 
 #enable all system restart_level to relative
 persist.sys.ssr.restart_level=ALL_ENABLE
-
-persist.sys.usb.config.extra=none
