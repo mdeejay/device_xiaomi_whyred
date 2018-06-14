@@ -10,16 +10,12 @@
 /data/misc/gf_data(/.*)?                        u:object_r:fingerprintd_data_file:s0
 /data/misc/goodix(/.*)?                         u:object_r:fingerprintd_data_file:s0
 /data/fpc/test.db				u:object_r:fingerprintd_data_file:s0
-/data/fpc/test.db.bak				u:object_r:fingerprintd_data_file:s0
 
 # Block devices
 /dev/block/mmcblk0p53  		u:object_r:persist_block_device:s0
 
 # Bluetooth
 /vendor/bin/btnvtool	u:object_r:btnvtool_exec:s0
-
-# Camera
-/system/vendor/bin/mm-qcamera-daemon		u:object_r:mm-qcamerad_exec:s0
 
 # Data files
 /data/misc/netmgr/log\.txt			u:object_r:netmgrd_data_file:s0
