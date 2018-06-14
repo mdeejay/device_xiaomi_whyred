@@ -1,29 +1,42 @@
-persist.sys.job_delay=true
+
+# Radio
+rild.libpath=/system/vendor/lib64/libril-qc-qmi-1.so
 persist.sys.mcd_config_file=/system/etc/mcd_default.conf
-persist.sys.perf.debug=true
-persist.sys.whetstone.level=2
-ro.control_privapp_permissions=log
 ro.opa.eligible_device=true
-drm.service.enabled=true
-qemu.hw.mainkeys=0
-video.disable.ubwc=1
 persist.radio.multisim.config=dsds
 persist.vendor.qcomsysd.enabled=1
-ro.vendor.extension_library=libqti-perfd-client.so
-ro.vendor.qti.sys.fw.bg_apps_limit=60
-sdm.debug.disable_skip_validate=1
-sdm.perf_hint_window=50
 persist.radio.apm_sim_not_pwdn=1
 persist.vendor.radio.sib16_support=1
 persist.vendor.radio.custom_ecc=1
 persist.vendor.radio.rat_on=combine
 persist.radio.schd.cache=3500
-sys.vendor.shutdown.waittime=500
-ro.build.shutdown_timeout=2
-ro.frp.pst=/dev/block/bootdevice/by-name/frp
-ro.opengles.version=196610
-qcom.bluetooth.soc=cherokee
 af.fast_track_multiplier=1
+
+# For RIJL netwrok video call
+persist.radio.NO_STAPA=1
+
+# Enable mbn file update for SIMTrigger
+persist.radio.sw_mbn_update=0
+persist.radio.hw_mbn_update=0
+
+# IMS
+persist.dbg.volte_avail_ovr=1
+persist.dbg.ims_volte_enable=1
+persist.radio.videopause.mode=1
+persist.data.iwlan.enable=true
+persist.radio.VT_HYBRID_ENABLE=1
+
+# Enable SIMTrigger silence mode feature
+persist.radio.trigger.silence=true
+
+# Flag to distinguish the open market to Operator
+persist.device.type=omt
+
+# Flag for activating mbn or not,default is true.
+persist.activate_mbn.enabled=false
+ro.regionalization.support=true
+
+# Audio
 vendor.audio_hal.period_size=192
 ro.vendor.audio.sdk.fluencetype=none
 persist.vendor.audio.fluence.voicecall=true
@@ -57,43 +70,33 @@ vendor.audio.noisy.broadcast.delay=600
 persist.vendor.audio.hifi.int_codec=true
 vendor.audio.offload.pstimeout.secs=3
 audio.adm.buffering.ms=6
+
+# Sensors
 ro.vendor.sensors.facing=false
 ro.vendor.sensors.cmc=false
 ro.vendor.sdk.sensors.gestures=false
-rild.libpath=/system/vendor/lib64/libril-qc-qmi-1.so
-
-#
-# PROPERTIES FOR IMS
-#
-persist.dbg.volte_avail_ovr=1
-persist.dbg.ims_volte_enable=1
-persist.radio.videopause.mode=1
-persist.data.iwlan.enable=true
-persist.radio.VT_HYBRID_ENABLE=1
 
 # Camera
 persist.camera.HAL3.enabled=1
 
-#For RIJL netwrok video call
-persist.radio.NO_STAPA=1
+# DRM
+drm.service.enabled=true
 
-# the level of data wiping under PRESET mode
-persist.regional.wipedata.level=all
+# FRP
+ro.frp.pst=/dev/block/bootdevice/by-name/frp
 
-# enable mbn file update for SIMTrigger
-persist.radio.sw_mbn_update=0
-persist.radio.hw_mbn_update=0
+# Perf
+ro.vendor.extension_library=libqti-perfd-client.so
+persist.sys.perf.debug=false
+ro.vendor.qti.sys.fw.bg_apps_limit=60
+sdm.debug.disable_skip_validate=1
+sdm.perf_hint_window=50
 
-# enable SIMTrigger silence mode feature
-persist.radio.trigger.silence=true
+#
+sys.vendor.shutdown.waittime=500
+ro.build.shutdown_timeout=2
 
-# flag to distinguish the open market to Operator
-persist.device.type=omt
-
-# flag for activating mbn or not,default is true.
-persist.activate_mbn.enabled=false
-ro.regionalization.support=true
-
+# USB
 persist.sys.usb.config.extra=none
 sys.usb.controller=a800000.dwc3
 sys.usb.rndis.func.name=rndis_bam
