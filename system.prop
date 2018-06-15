@@ -194,4 +194,3 @@ ro.sys.fw.dex2oat_thread_count=8
 # and provide better responsiveness
 ro.min.fling_velocity=160
 ro.max.fling_velocity=20000
-
