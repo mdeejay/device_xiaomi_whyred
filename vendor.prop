@@ -11,13 +11,10 @@ persist.vendor.radio.custom_ecc=1
 persist.vendor.radio.rat_on=combine
 persist.radio.schd.cache=3500
 persist.radio.aosp_usr_pref_sel=true
-
-# For RIJL netwrok video call
 persist.radio.NO_STAPA=1
-
-# Enable mbn file update for SIMTrigger
 persist.radio.sw_mbn_update=0
 persist.radio.hw_mbn_update=0
+persist.radio.trigger.silence=true
 
 # IMS
 persist.dbg.volte_avail_ovr=1
@@ -25,9 +22,6 @@ persist.dbg.ims_volte_enable=1
 persist.radio.videopause.mode=1
 persist.data.iwlan.enable=true
 persist.radio.VT_HYBRID_ENABLE=1
-
-# Enable SIMTrigger silence mode feature
-persist.radio.trigger.silence=true
 
 # Flag to distinguish the open market to Operator
 persist.device.type=omt
@@ -77,9 +71,6 @@ ro.vendor.sensors.facing=false
 ro.vendor.sensors.cmc=false
 ro.vendor.sdk.sensors.gestures=false
 
-# Camera
-persist.camera.HAL3.enabled=1
-
 # DRM
 drm.service.enabled=true
 
@@ -88,10 +79,12 @@ ro.frp.pst=/dev/block/bootdevice/by-name/frp
 
 # Perf
 ro.vendor.extension_library=libqti-perfd-client.so
-persist.sys.perf.debug=false
+ro.vendor.qti.core_ctl_max_cpu=4
+ro.vendor.qti.core_ctl_min_cpu=0
 ro.vendor.qti.sys.fw.bg_apps_limit=60
 sdm.debug.disable_skip_validate=1
 sdm.perf_hint_window=50
+persist.sys.perf.debug=false
 
 #
 sys.vendor.shutdown.waittime=500
@@ -102,3 +95,4 @@ persist.sys.usb.config.extra=none
 sys.usb.controller=a800000.dwc3
 sys.usb.rndis.func.name=rndis_bam
 sys.usb.rmnet.func.name=rmnet_bam
+
