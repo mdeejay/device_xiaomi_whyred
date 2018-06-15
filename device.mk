@@ -141,6 +141,15 @@ PRODUCT_PACKAGES += \
     android.hardware.bluetooth@1.0-service \
     libbt-vendor
 	
+# Camera
+PRODUCT_PACKAGES += \
+    android.hardware.camera.provider@2.4-impl \
+    android.hardware.camera.provider@2.4-service \
+    vendor.qti.hardware.camera.device@1.0 \
+    vendor.qti.hardware.camera.device@1.0_vendor \
+    camera.device@1.0-impl \
+    camera.device@3.2-impl
+	
 # Camera-face detection
 PRODUCT_PACKAGES += \
     com.qualcomm.qti.camera
@@ -321,7 +330,6 @@ PRODUCT_PACKAGES += \
 
 # Power
 PRODUCT_PACKAGES += \
-    power.qcom \
     android.hardware.power@1.1-service-qti
 
 # Low power Whitelist
