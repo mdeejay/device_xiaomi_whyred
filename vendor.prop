@@ -32,7 +32,7 @@ ro.regionalization.support=true
 
 # Audio
 vendor.audio_hal.period_size=192
-ro.vendor.audio.sdk.fluencetype=none
+ro.vendor.audio.sdk.fluencetype=fluence
 persist.vendor.audio.fluence.voicecall=true
 persist.vendor.audio.fluence.voicerec=false
 persist.vendor.audio.fluence.speaker=true
@@ -65,6 +65,7 @@ persist.vendor.audio.hifi.int_codec=true
 vendor.audio.offload.pstimeout.secs=3
 audio.adm.buffering.ms=6
 af.fast_track_multiplier=1
+ro.config.vc_call_vol_steps=11
 
 # Sensors
 ro.vendor.sensors.facing=false
