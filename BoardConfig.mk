@@ -206,7 +206,7 @@ TARGET_FS_CONFIG_GEN := $(DEVICE_PATH)/config.fs
 TARGET_PER_MGR_ENABLED := true
 
 # Power
-TARGET_TAP_TO_WAKE_NODE := "/sys/class/input/input2/wake_gesture"
+TARGET_TAP_TO_WAKE_NODE := "/sys/devices/soc/c175000.i2c/i2c-1/1-0020/input/input2/wake_gesture"
 
 # Properties
 PRODUCT_VENDOR_MOVE_ENABLED := true

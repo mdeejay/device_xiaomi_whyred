@@ -530,7 +530,6 @@ on property:vold.decrypt=trigger_restart_framework
     start qcom-c_main-sh
     start config_bt_addr
     start wcnss-service
-    start cnss_diag
 
 on property:persist.env.fastdorm.enabled=true
     setprop persist.radio.data_no_toggle 1
@@ -823,13 +822,6 @@ on property:wifi.ftmd.load=true
     start openwifi
 on property:wifi.ftmd.load=false
     stop openwifi
-
-
-service cnss_diag /system/vendor/bin/cnss_diag -q -f
-    class main
-    user system
-    group system wifi inet net_admin sdcard_rw media_rw diag
-    oneshot
 
 service cnss-daemon /system/vendor/bin/cnss-daemon -n -l
     class late_start

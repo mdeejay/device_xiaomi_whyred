@@ -71,11 +71,6 @@ ro.bluetooth.hfp.ver=1.6
 # System property for cabl
 ro.qualcomm.cabl=0
 
-# ad
-ro.qcom.ad=1
-ro.qcom.ad.calib.data=/system/etc/calib.cfg
-ro.qcom.ad.sensortype=2
-
 # System prop for RmNet Data
 persist.rmnet.data.enable=true
 persist.data.wda.enable=true
@@ -149,6 +144,7 @@ persist.s5k3l8_ofilm.light.lux=367
 persist.vendor.qti.telephony.vt_cam_interface=1
 persist.radio.VT_CAM_INTERFACE=2
 vidc.enc.dcvs.extra-buff-count=2
+persist.dualcam.lpm.enable=1
 
 # Set for xiaomi headset effect
 ro.audio.soundfx.dirac=true

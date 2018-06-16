@@ -33,7 +33,7 @@
 /(vendor|system/vendor)/radio/qcril_database/qcril.db			u:object_r:rild_file:s0
 
 # Power HAL
-/sys/class/input/input2/wake_gesture     u:object_r:sysfs_touchpanel:s0
+/sys/devices/soc/c175000\.i2c/i2c-1/1-0020/input/input[0-9]+/wake_gesture     u:object_r:sysfs_touchpanel:s0
 
 # Sysfs
 /sys/devices/soc/leds-qpnp-[0-9]+/leds(/.*)?				u:object_r:sysfs_leds:s0
