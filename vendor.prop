@@ -6,6 +6,7 @@ ro.opa.eligible_device=true
 persist.radio.multisim.config=dsds
 persist.vendor.qcomsysd.enabled=1
 persist.radio.apm_sim_not_pwdn=1
+persist.radio.dynamic_sar=false
 persist.vendor.radio.sib16_support=1
 persist.vendor.radio.custom_ecc=1
 persist.vendor.radio.rat_on=combine
@@ -22,9 +23,6 @@ persist.dbg.ims_volte_enable=1
 persist.radio.videopause.mode=1
 persist.data.iwlan.enable=true
 persist.radio.VT_HYBRID_ENABLE=1
-
-# Flag to distinguish the open market to Operator
-persist.device.type=omt
 
 # Flag for activating mbn or not,default is true.
 persist.activate_mbn.enabled=false
@@ -96,3 +94,7 @@ persist.sys.usb.config.extra=none
 sys.usb.controller=a800000.dwc3
 sys.usb.rndis.func.name=rndis_bam
 sys.usb.rmnet.func.name=rmnet_bam
+
+# Wlan
+wifi.interface=wlan0
+
