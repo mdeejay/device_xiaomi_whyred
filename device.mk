@@ -423,8 +423,6 @@ PRODUCT_PACKAGES += \
     android.hardware.wifi@1.0-service \
     hostapd \
     hostapd_cli \
-    libqsap_sdk \
-    libQWiFiSoftApCfg \
     libwifi-hal-qcom \
     wcnss_service \
     wificond \
@@ -440,8 +438,8 @@ PRODUCT_COPY_FILES += \
 
 # HWUI
 PRODUCT_PROPERTY_OVERRIDES += \
-    ro.hwui.texture_cache_size=72 \
-    ro.hwui.layer_cache_size=48 \
+    ro.hwui.texture_cache_size=88 \
+    ro.hwui.layer_cache_size=58 \
     ro.hwui.path_cache_size=32 \
     ro.hwui.gradient_cache_size=1 \
     ro.hwui.drop_shadow_cache_size=6 \
@@ -458,5 +456,5 @@ PRODUCT_PROPERTY_OVERRIDES += \
     dalvik.vm.heapgrowthlimit=256m \
     dalvik.vm.heapsize=512m \
     dalvik.vm.heaptargetutilization=0.75 \
-    dalvik.vm.heapminfree=512m \
+    dalvik.vm.heapminfree=512k \
     dalvik.vm.heapmaxfree=8m
