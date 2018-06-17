@@ -631,13 +631,6 @@ service netmgrd /system/vendor/bin/netmgrd
     class main
     disabled
 
-service ipacm-diag /system/vendor/bin/ipacm-diag
-    class main
-    user radio
-    socket ipacm_log_file dgram 660 radio radio
-    group radio diag oem_2901
-    disabled
-
 service ipacm /system/vendor/bin/ipacm
     class main
     user radio
@@ -867,18 +860,6 @@ service loc_launcher /system/vendor/bin/loc_launcher
     class late_start
     group gps inet diag wifi
 
-service drmdiag /system/vendor/bin/drmdiagapp
-    class late_start
-     user root
-     disabled
-     oneshot
-
-on property:drmdiag.load=1
-    start drmdiag
-
-on property:drmdiag.load=0
-    stop drmdiag
-
 service qcom-sh /vendor/bin/init.qcom.sh
     class late_start
     user root
@@ -991,12 +972,6 @@ service charger /charger
     group system graphics
     seclabel u:r:healthd:s0
 
-service ssr_diag /system/vendor/bin/ssr_diag
-    class late_start
-    user system
-    group system
-    disabled
-
 service hvdcp /system/bin/hvdcp
     class core
     user root
@@ -1022,25 +997,6 @@ on property:sys.qbcharger.enable=true
 
 on property:sys.qbcharger.enable=false
     stop qbcharger
-
-service diag_mdlog_start /system/vendor/bin/diag_mdlog
-    class late_start
-    user shell
-    group system diag oem_2901 sdcard_rw sdcard_r media_rw
-    disabled
-    oneshot
-
-service diag_mdlog_stop /system/vendor/bin/diag_mdlog -k
-    class late_start
-    user shell
-    group system diag oem_2901 sdcard_rw sdcard_r media_rw
-    disabled
-    oneshot
-
-on property:persist.sys.mdlog.enable=true
-    start diag_mdlog_start
-on property:persist.sys.mdlog.enable=false
-    start diag_mdlog_stop
 
 service vm_bms /vendor/bin/vm_bms
     user root
