@@ -779,12 +779,6 @@ service wifi-crda /vendor/bin/init.crda.sh
 on property:sys.boot_completed=1
     start qcom-post-boot
 
-service qvop-daemon /vendor/bin/qvop-daemon
-    class late_start
-    user system
-    group system drmrpc
-    writepid /dev/cpuset/system-background/tasks
-
 service atfwd /vendor/bin/ATFWD-daemon
     class late_start
     user system

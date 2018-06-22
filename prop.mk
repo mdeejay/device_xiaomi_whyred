@@ -119,7 +119,6 @@ persist.dualcam.lpm.enable=1
 
 # Display
 PRODUCT_PROPERTY_OVERRIDES += \
-debug.sf.enable_hwc_vds=1 \
 debug.sf.latch_unsignaled=1 \
 debug.gralloc.enable_fb_ubwc=1 \
 ro.sf.lcd_density=440 \
@@ -128,8 +127,7 @@ persist.hwc.enable_vds=1 \
 persist.debug.wfd.enable=1 \
 persist.sys.wfd.virtual=0 \
 ro.opengles.version=196610 \
-vendor.display.enable_default_color_mode=0 \
-ro.qualcomm.cabl=0
+vendor.display.enable_default_color_mode=0
 
 # Paper mode
 PRODUCT_PROPERTY_OVERRIDES += \
