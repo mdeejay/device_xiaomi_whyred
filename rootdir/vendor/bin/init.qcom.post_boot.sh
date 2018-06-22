@@ -105,7 +105,7 @@ else
     echo 0 > /sys/module/process_reclaim/parameters/enable_process_reclaim
     echo 70 > /sys/module/process_reclaim/parameters/pressure_max
     echo 30 > /sys/module/process_reclaim/parameters/swap_opt_eff
-    echo 1 > /sys/module/lowmemorykiller/parameters/enable_adaptive_lmk
+    echo 0 > /sys/module/lowmemorykiller/parameters/enable_adaptive_lmk
     if [ "$arch_type" == "aarch64" ] && [ $MemTotal -gt 2097152 ]; then
         echo 10 > /sys/module/process_reclaim/parameters/pressure_min
         echo 1024 > /sys/module/process_reclaim/parameters/per_swap_size
@@ -1924,7 +1924,7 @@ case "$target" in
             # cpuset settings
             echo 0-7 > /dev/cpuset/top-app/cpus
             echo 4-7 > /dev/cpuset/foreground/boost/cpus
-            echo 0-2,4-7 > /dev/cpuset/foreground/cpus
+            echo 0-7 > /dev/cpuset/foreground/cpus
             echo 0-1 > /dev/cpuset/background/cpus
             echo 0-2 > /dev/cpuset/system-background/cpus
 
@@ -2000,7 +2000,7 @@ case "$target" in
             #Add-begin-HMI_L8866_A01-794,lijiang@longcheer.com,2018-01-20
             #Enable input boost configuration
             echo "0:1401600" > /sys/module/cpu_boost/parameters/input_boost_freq
-            echo 60 > /sys/module/cpu_boost/parameters/input_boost_ms
+            echo 40 > /sys/module/cpu_boost/parameters/input_boost_ms
             #Add-end-HMI_L8866_A01-794
             # Set Memory parameters
             configure_memory_parameters

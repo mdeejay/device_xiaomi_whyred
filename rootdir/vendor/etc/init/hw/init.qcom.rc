@@ -443,39 +443,6 @@ service iop /system/vendor/bin/iop
 on property:persist.vendor.qcomsysd.enabled=1
     start qcomsysd
 
-service ssr_setup /system/vendor/bin/ssr_setup
-    oneshot
-    disabled
-
-service ss_ramdump /system/vendor/bin/subsystem_ramdump
-    class main
-    user system
-    group system
-    disabled
-
-on property:persist.sys.ssr.enable_debug=*
-    write /sys/module/subsystem_restart/parameters/enable_debug ${persist.sys.ssr.enable_debug}
-
-on property:persist.sys.mba_boot_timeout=*
-    write /sys/module/pil_msa/parameters/pbl_mba_boot_timeout_ms ${persist.sys.mba_boot_timeout}
-
-on property:persist.sys.modem_auth_timeout=*
-    write /sys/module/pil_msa/parameters/modem_auth_timeout_ms ${persist.sys.modem_auth_timeout}
-
-on property:persist.sys.pil_proxy_timeout=*
-    write /sys/module/peripheral_loader/parameters/proxy_timeout_ms ${persist.sys.pil_proxy_timeout}
-
-on property:persist.sys.ssr.restart_level=*
-    start ssr_setup
-
-on property:persist.sys.ssr.enable_ramdumps=1
-    write /sys/module/subsystem_restart/parameters/enable_ramdumps 1
-    mkdir /data/ramdump 770 system system
-    start ss_ramdump
-
-on property:persist.sys.ssr.enable_ramdumps=0
-    write /sys/module/subsystem_restart/parameters/enable_ramdumps 0
-
 on property:sys.boot_completed=1
     write /dev/kmsg "Boot completed "
     #Reset read ahead for dm-0 and dm-1 to 512kb
@@ -612,13 +579,6 @@ service bt_logger /system/bin/bt_logger
    disabled
    oneshot
 
-service ftmd /system/bin/logwrapper /system/vendor/bin/ftmdaemon
-    class late_start
-    user root
-    group bluetooth net_bt_admin misc diag net_bt
-    disabled
-    oneshot
-
 service port-bridge /system/vendor/bin/port-bridge
     class main
     user radio system
@@ -678,24 +638,6 @@ on property:ro.data.large_tcp_window_size=true
 on property:sys.sysctl.tcp_adv_win_scale=*
     write /proc/sys/net/ipv4/tcp_adv_win_scale ${sys.sysctl.tcp_adv_win_scale}
 
-service amp_init /system/vendor/bin/amploader -i
-    class late_start
-    user root
-    disabled
-    oneshot
-
-service amp_load /system/vendor/bin/amploader -l 7000
-    class late_start
-    user root
-    disabled
-    oneshot
-
-service amp_unload /system/vendor/bin/amploader -u
-    class late_start
-    user root
-    disabled
-    oneshot
-
 service wpa_supplicant /vendor/bin/hw/wpa_supplicant \
     -ip2p0 -Dnl80211 -c/data/misc/wifi/p2p_supplicant.conf \
     -I/vendor/etc/wifi/p2p_supplicant_overlay.conf -N \
@@ -712,64 +654,6 @@ service wpa_supplicant /vendor/bin/hw/wpa_supplicant \
     disabled
     oneshot
     writepid /dev/cpuset/system-background/tasks
-
-service vendor.wigig_supplicant /vendor/bin/hw/wpa_supplicant \
-    -iwigig0 -Dnl80211 -c/data/vendor/wifi/wigig_supplicant.conf \
-    -m/data/vendor/wifi/wigig_p2p_supplicant.conf \
-    -O/data/vendor/wifi/wigig_sockets \
-    -e/data/vendor/wifi/wigig_entropy.bin -g@android:wpa_wigig0 \
-    -S wigigsvc
-    #   we will start as root and wpa_supplicant will switch to user wifi
-    #   after setting up the capabilities required for WEXT
-    #   user wifi
-    #   group wifi inet keystore
-    class main
-    socket wpa_wigig0 dgram 660 wifi wifi
-    disabled
-    oneshot
-    writepid /dev/cpuset/system-background/tasks
-
-# FST Manager with hostapd (softap) - all settings inside ini file
-service fstman /vendor/bin/fstman -B -ddd -c /data/vendor/wifi/fstman.ini
-    user wifi
-    group wifi net_admin net_raw
-    class main
-    disabled
-    oneshot
-
-# FST Manager with supplicant - connect to supplicant socket
-service fstman_wlan0 /vendor/bin/fstman -B -ddd -c /data/vendor/wifi/fstman.ini @android:wpa_wlan0
-    user wifi
-    group wifi net_admin net_raw
-    class main
-    disabled
-    oneshot
-
-on property:netd.fstman.start=true
-    start fstman
-
-on property:netd.fstman.start=false
-    stop fstman
-
-service wigighalsvc /vendor/bin/wigighalsvc
-    class main
-    user system
-    group wifi
-    disabled
-
-service wigignpt /vendor/bin/wigignpt
-    class main
-    socket wigignpt stream 660 system wifi
-    user system
-    group wifi net_admin
-    disabled
-    writepid /dev/cpuset/system-background/tasks
-
-on property:persist.vendor.wigig.enable=1
-    start wigighalsvc
-
-on property:persist.vendor.wigig.npt.enable=1
-    start wigignpt
 
 service dhcpcd_wlan0 /system/bin/dhcpcd -ABKLG
     class late_start
@@ -911,14 +795,14 @@ service atfwd /vendor/bin/ATFWD-daemon
 on property:persist.radio.atfwd.start=true
     start atfwd
 
-service hostapd_fst /vendor/bin/hostapd -dd -g /data/vendor/wifi/hostapd/global /data/misc/wifi/hostapd.conf
+service hostapd_fst /vendor/bin/hostapd -g /data/vendor/wifi/hostapd/global /data/misc/wifi/hostapd.conf
     class late_start
     user wifi
     group wifi inet keystore net_admin net_raw
     oneshot
     disabled
 
-service vendor.wigig_hostapd /vendor/bin/hostapd -dd /data/vendor/wifi/wigig_hostapd.conf
+service vendor.wigig_hostapd /vendor/bin/hostapd /data/vendor/wifi/wigig_hostapd.conf
     class late_start
     user wifi
     group wifi inet keystore net_admin net_raw
@@ -1011,19 +895,9 @@ service time_daemon /system/vendor/bin/time_daemon
     group root
     writepid /dev/cpuset/system-background/tasks
 
-service qdmastatsd /system/vendor/bin/qdmastatsd
-    class late_start
-    user system
-    group readproc system net_bw_stats radio
-
 # Set vendor-ril lib path based on Meta version
 on property:vendor.rild.libpath=*
     setprop rild.libpath ${vendor.rild.libpath}
-
-service seemp_healthd /vendor/bin/seemp_healthd
-    class late_start
-    user system
-    group system
 
 service wdsdaemon /vendor/bin/wdsdaemon -su
 	user root
@@ -1050,16 +924,4 @@ on property:sys.thermal.isincall=1
 
 on property:sys.thermal.isincall=0
     write /sys/class/power_supply/battery/device/thermalcall 0
-
-service power_off_alarm /vendor/bin/power_off_alarm
-    class core
-    group system
-    disabled
-    oneshot
-
-service config_bt_addr /vendor/bin/btnvtool -O
-    class core
-    user bluetooth
-    group bluetooth radio
-    oneshot
-    writepid /dev/cpuset/system-background/tasks
+	

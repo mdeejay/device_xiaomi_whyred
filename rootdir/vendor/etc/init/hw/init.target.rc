@@ -238,11 +238,6 @@ service seempd /system/bin/seempd
     group system sdcard_rw
     socket seempdw dgram 0666 system system
 
-service qfp-daemon /vendor/bin/qfp-daemon
-    class late_start
-    user system
-    group system drmrpc diag input
-
 service hvdcp_opti /system/vendor/bin/hvdcp_opti
      class main
      user root
@@ -273,22 +268,3 @@ on property:persist.sys.display_gamma=1
 on property:persist.sys.display_gamma=2
     write /sys/class/graphics/fb0/msm_fb_gamma 2
 
-#add for wifi sar 
-service wifisarnear /vendor/bin/wifisarnear
-    user root 
-    group root
-    oneshot
-    disabled
-
-on property:sys.wifisarnear=1
-    start wifisarnear
-
-service wifisarfar /vendor/bin/wifisarfar
-    user root 
-    group root
-    oneshot
-    disabled
-    writepid /dev/cpuset/system-background/tasks
-
-on property:sys.wifisarfar=1
-    start wifisarfar
