@@ -33,7 +33,8 @@ persist.radio.aosp_usr_pref_sel=true \
 persist.radio.NO_STAPA=1 \
 persist.radio.sw_mbn_update=0 \
 persist.radio.hw_mbn_update=0 \
-persist.radio.trigger.silence=true
+persist.radio.trigger.silence=true \
+persist.radio.VT_CAM_INTERFACE=2
 
 # IMS
 PRODUCT_PROPERTY_OVERRIDES += \
@@ -113,7 +114,6 @@ persist.camera.HAL3.enabled=1 \
 vendor.camera.aux.packagelist=org.codeaurora.snapcam,com.android.camera,org.lineageos.snap \
 persist.camera.isp.clock.optmz=0 \
 persist.vendor.qti.telephony.vt_cam_interface=1 \
-persist.radio.VT_CAM_INTERFACE=2 \
 vidc.enc.dcvs.extra-buff-count=2 \
 persist.dualcam.lpm.enable=1
 
@@ -129,20 +129,6 @@ persist.sys.wfd.virtual=0 \
 ro.opengles.version=196610 \
 vendor.display.enable_default_color_mode=0
 
-# Paper mode
-PRODUCT_PROPERTY_OVERRIDES += \
-sys.paper_mode_max_level=32 \
-sys.tianma_td4310_offset=5 \
-sys.tianma_td4310_length=55 \
-sys.shenchao_td4310_offset=-2 \
-sys.shenchao_td4310_length=45 \
-sys.tianma_nt36672_offset=2 \
-sys.tianma_nt36672_length=45
-
-# Enable new autobrightness algo
-PRODUCT_PROPERTY_OVERRIDES += \
-sys.autobrightness_optimize=true
-
 # HWUI
 PRODUCT_PROPERTY_OVERRIDES += \
 ro.hwui.texture_cache_size=88 \
@@ -156,6 +142,15 @@ ro.hwui.text_small_cache_width=1024 \
 ro.hwui.text_small_cache_height=1024 \
 ro.hwui.text_large_cache_width=2048 \
 ro.hwui.text_large_cache_height=2048
+
+# Dalvik
+PRODUCT_PROPERTY_OVERRIDES += \
+dalvik.vm.heapstartsize=8m \
+dalvik.vm.heapgrowthlimit=256m \
+dalvik.vm.heapsize=512m \
+dalvik.vm.heaptargetutilization=0.75 \
+dalvik.vm.heapminfree=512k \
+dalvik.vm.heapmaxfree=8m
 
 # System props for the cne module
 PRODUCT_PROPERTY_OVERRIDES += \
