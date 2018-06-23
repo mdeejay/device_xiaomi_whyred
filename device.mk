@@ -219,7 +219,8 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     FM2 \
     libqcomfm_jni \
-    qcom.fmradio
+    qcom.fmradio \
+	init.qti.fm.sh
 
 PRODUCT_BOOT_JARS += qcom.fmradio
 
@@ -361,7 +362,6 @@ PRODUCT_PACKAGES += \
 	init.qcom.syspart_fixup.sh \
 	init.qcom.usb.sh \
 	init.qcom.wifi.sh \
-	init.qti.fm.sh \
 	init.qti.ims.sh \
 	init.qti.qseecomd.sh
 
