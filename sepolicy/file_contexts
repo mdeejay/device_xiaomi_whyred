@@ -14,9 +14,6 @@
 # Block devices
 /dev/block/mmcblk0p53  		u:object_r:persist_block_device:s0
 
-# Bluetooth
-/vendor/bin/btnvtool	u:object_r:btnvtool_exec:s0
-
 # Data files
 /data/misc/netmgr/log\.txt			u:object_r:netmgrd_data_file:s0
 /data/time(/.*)?                         	u:object_r:time_data_file:s0
@@ -28,6 +25,9 @@
 
 # IR
 /dev/spidev7.1		u:object_r:lirc_device:s0
+
+# Light HAL
+/(vendor|system/vendor)/bin/hw/android\.hardware\.light@2\.0-service\.xiaomi_sdm660 u:object_r:hal_light_default_exec:s0
 
 # Rild
 /(vendor|system/vendor)/radio/qcril_database/qcril.db			u:object_r:rild_file:s0
