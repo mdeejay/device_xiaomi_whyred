@@ -111,12 +111,30 @@ ro.bluetooth.hfp.ver=1.6
 # Camera
 PRODUCT_PROPERTY_OVERRIDES += \
 camera.hal1.packagelist=com.skype.raider,com.google.android.talk \
-persist.camera.HAL3.enabled=1 \
 vendor.camera.aux.packagelist=org.codeaurora.snapcam,com.android.camera,org.lineageos.snap \
+persist.camera.preview.ubwc=0 \
+persist.camera.stats.test=0 \
+persist.camera.depth.focus.cb=0 \
 persist.camera.isp.clock.optmz=0 \
+persist.camera.hist.high=20 \
+persist.camera.hist.drc=1.2 \
+persist.camera.linkpreview=0 \
+persist.camera.isp.turbo=1 \
 persist.vendor.qti.telephony.vt_cam_interface=1 \
-vidc.enc.dcvs.extra-buff-count=2 \
-persist.dualcam.lpm.enable=1
+persist.sys.exif.make=Xiaomi \
+persist.sys.exif.model=Redmi Note 5 \
+persist.flash.low.lux=390 \
+persist.flash.light.lux=340 \
+persist.imx376_ofilm.low.lux=310 \
+persist.imx376_ofilm.light.lux=280 \
+persist.imx376_sunny.low.lux=310 \
+persist.imx376_sunny.light.lux=280 \
+persist.ov13855_sunny.low.lux=385 \
+persist.ov13855_sunny.light.lux=370 \
+persist.s5k3l8_ofilm.low.lux=379 \
+persist.s5k3l8_ofilm.light.lux=367 \
+persist.camera.HAL3.enabled=1 \
+vidc.enc.dcvs.extra-buff-count=2
 
 # Display
 PRODUCT_PROPERTY_OVERRIDES += \
