@@ -250,6 +250,10 @@ PRODUCT_PROPERTY_OVERRIDES += \
 sys.vendor.shutdown.waittime=500 \
 ro.build.shutdown_timeout=2
 
+# Security patch level
+PRODUCT_PROPERTY_OVERRIDES += \
+ro.vendor.build.security_patch=2018-05-01
+
 # ART
 PRODUCT_PROPERTY_OVERRIDES += \
 dalvik.vm.dex2oat-filter=speed \
