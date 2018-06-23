@@ -28,6 +28,7 @@ persist.radio.dynamic_sar=false \
 persist.vendor.radio.sib16_support=1 \
 persist.vendor.radio.custom_ecc=1 \
 persist.vendor.radio.rat_on=combine \
+persist.vendor.radio.add_power_save=1 \
 persist.radio.schd.cache=3500 \
 persist.radio.aosp_usr_pref_sel=true \
 persist.radio.NO_STAPA=1 \
