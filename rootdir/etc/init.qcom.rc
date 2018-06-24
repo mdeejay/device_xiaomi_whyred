@@ -579,14 +579,6 @@ service bt_logger /system/bin/bt_logger
    disabled
    oneshot
 
-service port-bridge /system/vendor/bin/port-bridge
-    class main
-    user radio system
-    group radio system inet
-    disabled
-    oneshot
-    writepid /dev/cpuset/system-background/tasks
-
 service qmiproxy /system/bin/qmiproxy
     class main
     user radio
