@@ -140,6 +140,7 @@ vidc.enc.dcvs.extra-buff-count=2
 PRODUCT_PROPERTY_OVERRIDES += \
 debug.sf.latch_unsignaled=1 \
 debug.gralloc.enable_fb_ubwc=1 \
+debug.sf.recomputecrop=0 \
 ro.sf.lcd_density=440 \
 sdm.debug.disable_skip_validate=1 \
 persist.hwc.enable_vds=1 \
