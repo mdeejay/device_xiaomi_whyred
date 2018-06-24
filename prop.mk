@@ -110,7 +110,7 @@ ro.bluetooth.hfp.ver=1.6
 
 # Camera
 PRODUCT_PROPERTY_OVERRIDES += \
-camera.hal1.packagelist=com.skype.raider,com.google.android.talk \
+camera.hal1.packagelist=com.whatsapp,com.snapchat.android,com.instagram.android \
 vendor.camera.aux.packagelist=org.codeaurora.snapcam,com.android.camera,org.lineageos.snap \
 persist.camera.preview.ubwc=0 \
 persist.camera.stats.test=0 \
@@ -131,7 +131,6 @@ persist.ov13855_sunny.low.lux=385 \
 persist.ov13855_sunny.light.lux=370 \
 persist.s5k3l8_ofilm.low.lux=379 \
 persist.s5k3l8_ofilm.light.lux=367 \
-persist.camera.HAL3.enabled=1 \
 vidc.enc.dcvs.extra-buff-count=2
 
 # Display
