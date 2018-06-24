@@ -23,6 +23,10 @@
 /sys/kernel/debug/rpm_stats                     u:object_r:debugfs_rpm:s0
 /sys/kernel/debug/rpm_master_stats              u:object_r:debugfs_rpm:s0
 
+# Input devices
+/(vendor|system/vendor)/usr/idc(/.*)?                         u:object_r:idc_file:s0
+/(vendor|system/vendor)/usr/keylayout(/.*)?                   u:object_r:keylayout_file:s0
+
 # IR
 /dev/spidev7.1		u:object_r:lirc_device:s0
 
