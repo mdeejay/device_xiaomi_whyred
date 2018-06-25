@@ -27,7 +27,8 @@ $(call inherit-product, vendor/xiaomi/whyred/whyred-vendor.mk)
 
 # Overlays
 DEVICE_PACKAGE_OVERLAYS += \
-    $(LOCAL_PATH)/overlay
+    $(LOCAL_PATH)/overlay \
+	$(LOCAL_PATH)/overlay-lineage
 	
 # Screen density
 PRODUCT_AAPT_CONFIG := normal
@@ -142,6 +143,9 @@ PRODUCT_PACKAGES += \
     libbt-vendor
 	
 # Camera
+PRODUCT_PACKAGES += \
+	Snap
+
 PRODUCT_PACKAGES += \
     android.hardware.camera.provider@2.4-impl \
     android.hardware.camera.provider@2.4-service \
@@ -287,6 +291,10 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     android.hardware.light@2.0-impl \
     android.hardware.light@2.0-service
+	
+# LiveDisplay native
+PRODUCT_PACKAGES += \
+    vendor.lineage.livedisplay@1.0-service-sdm	
 
 # Media
 PRODUCT_COPY_FILES += \
@@ -395,7 +403,6 @@ PRODUCT_COPY_FILES += \
 
 # Sensors
 PRODUCT_PACKAGES += \
-    sensors.sdm660 \
     android.hardware.sensors@1.0-impl \
     android.hardware.sensors@1.0-service
 
@@ -417,16 +424,14 @@ PRODUCT_PACKAGES += \
 # Thermal
 PRODUCT_PACKAGES += \
     android.hardware.thermal@1.0-impl \
-    android.hardware.thermal@1.0-service \
-    thermal.sdm660
+    android.hardware.thermal@1.0-service
 
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/configs/thermal/thermal-engine.conf:$(TARGET_COPY_OUT_VENDOR)/etc/thermal-engine.conf
 
 # USB
 PRODUCT_PACKAGES += \
-    android.hardware.usb@1.0-service \
-    com.android.future.usb.accessory
+    android.hardware.usb@1.0-service
 
 # Vibrator
 PRODUCT_PACKAGES += \
@@ -439,7 +444,6 @@ PRODUCT_PACKAGES += \
 
 # Wifi
 PRODUCT_PACKAGES += \
-    android.hardware.wifi@1.0-service \
     hostapd \
     hostapd_cli \
     libwifi-hal-qcom \
@@ -449,8 +453,12 @@ PRODUCT_PACKAGES += \
     wpa_supplicant.conf \
     wifi-mac-generator
 
+PRODUCT_PACKAGES += \
+    android.hardware.wifi@1.0-service
+
 PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/configs/wifi/fstman.ini:$(TARGET_COPY_OUT_VENDOR)/etc/wifi/fstman.ini \
+    $(LOCAL_PATH)/configs/wifi/WCNSS_qcom_cfg.ini:$(TARGET_COPY_OUT_VENDOR)/etc/wifi/WCNSS_qcom_cfg.ini \
     $(LOCAL_PATH)/configs/wifi/p2p_supplicant_overlay.conf:$(TARGET_COPY_OUT_VENDOR)/etc/wifi/p2p_supplicant_overlay.conf \
-    $(LOCAL_PATH)/configs/wifi/wpa_supplicant_overlay.conf:$(TARGET_COPY_OUT_VENDOR)/etc/wifi/wpa_supplicant_overlay.conf \
-    $(LOCAL_PATH)/configs/wifi/WCNSS_qcom_cfg.ini:$(TARGET_COPY_OUT_VENDOR)/etc/wifi/WCNSS_qcom_cfg.ini
+    $(LOCAL_PATH)/configs/wifi/wpa_supplicant_overlay.conf:$(TARGET_COPY_OUT_VENDOR)/etc/wifi/wpa_supplicant_overlay.conf
 

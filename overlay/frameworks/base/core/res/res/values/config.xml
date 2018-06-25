@@ -21,20 +21,6 @@
          autodetected from the Configuration. -->
     <bool name="config_showNavigationBar">true</bool>
 
-     <!-- Hardware keys present on the device, stored as a bit field.
-          This integer should equal the sum of the corresponding value for each
-          of the following keys present:
-              1 - Home
-              2 - Back
-              4 - Menu
-              8 - Assistant (search)
-             16 - App switch
-             32 - Camera
-             64 - Volume rocker
-          For example, a device with Home, Back and Menu keys would set this
-          config to 7. -->
-     <integer name="config_deviceHardwareKeys">64</integer>
-
     <!-- Flag indicating whether the we should enable the automatic brightness in Settings.
          Software implementation will be used if config_hardware_auto_brightness_available is not set -->
     <bool name="config_automatic_brightness_available">true</bool>
@@ -469,14 +455,4 @@
     <!-- True if camera app should be pinned via Pinner Service -->
     <bool name="config_pinnerCameraApp">true</bool>
 	
-    <!-- Default value for proximity check on screen wake
-         NOTE ! - Enable for devices that have a fast response proximity sensor (ideally < 300ms)
-    -->
-    <bool name="config_proximityCheckOnWake">true</bool>
-    <integer name="config_proximityCheckTimeout">200</integer>
-    <bool name="config_proximityCheckOnWakeEnabledByDefault">false</bool>
-
-    <!-- Full screen aspect ratio -->
-    <bool name="config_haveHigherAspectRatioScreen">true</bool>
-    <item name="config_screenAspectRatio" format="float" type="dimen">2.1</item>
 </resources>

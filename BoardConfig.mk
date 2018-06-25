@@ -26,6 +26,12 @@ BOARD_VENDOR := xiaomi
 
 DEVICE_PATH := device/xiaomi/whyred
 
+TARGET_SPECIFIC_HEADER_PATH := $(DEVICE_PATH)/include
+
+# Lineage Hardware
+BOARD_HARDWARE_CLASS += \
+    $(DEVICE_PATH)/lineagehw
+
 # Bootloader
 TARGET_BOOTLOADER_BOARD_NAME := sdm636
 TARGET_NO_BOOTLOADER := true
@@ -36,19 +42,20 @@ TARGET_BOOTANIMATION_TEXTURE_CACHE := true
 
 # Platform
 TARGET_BOARD_PLATFORM := sdm660
+TARGET_BOARD_PLATFORM_GPU := qcom-adreno509
 
 # Architecture
 TARGET_ARCH := arm64
 TARGET_ARCH_VARIANT := armv8-a
 TARGET_CPU_ABI := arm64-v8a
 TARGET_CPU_ABI2 :=
-TARGET_CPU_VARIANT := cortex-a73
+TARGET_CPU_VARIANT := generic
 
 TARGET_2ND_ARCH := arm
 TARGET_2ND_ARCH_VARIANT := armv7-a-neon
 TARGET_2ND_CPU_ABI := armeabi-v7a
 TARGET_2ND_CPU_ABI2 := armeabi
-TARGET_2ND_CPU_VARIANT := cortex-a73
+TARGET_2ND_CPU_VARIANT := cortex-a53
 
 # Kernel
 BOARD_KERNEL_CMDLINE := androidboot.console=ttyMSM0 androidboot.hardware=qcom user_debug=31 msm_rtb.filter=0x37 ehci-hcd.park=3 service_locator.enable=1 swiotlb=1 androidboot.configfs=true androidboot.usbcontroller=a800000.dwc3
@@ -139,19 +146,20 @@ BOARD_USES_QCNE := true
 TARGET_CRYPTFS_HW_PATH := vendor/qcom/opensource/cryptfs_hw
 
 # Display
+MAX_EGL_CACHE_KEY_SIZE := 12*1024
+MAX_EGL_CACHE_SIZE := 2048*1024
+MAX_VIRTUAL_DISPLAY_DIMENSION := 4096
+NUM_FRAMEBUFFER_SURFACE_BUFFERS := 3
+OVERRIDE_RS_DRIVER:= libRSDriver_adreno.so
 TARGET_FORCE_HWC_FOR_VIRTUAL_DISPLAYS := true
 TARGET_USES_GRALLOC1 := true
 TARGET_USES_HWC2 := true
 TARGET_USES_ION := true
-
-MAX_EGL_CACHE_KEY_SIZE := 12*1024
-MAX_EGL_CACHE_SIZE := 2048*1024
-MAX_VIRTUAL_DISPLAY_DIMENSION := 4096
-
-OVERRIDE_RS_DRIVER := libRSDriver_adreno.so
-
-VSYNC_EVENT_PHASE_OFFSET_NS := 2000000
+TARGET_USES_NEW_ION_API :=true
+TARGET_USES_OVERLAY := true
+USE_OPENGL_RENDERER := true
 SF_VSYNC_EVENT_PHASE_OFFSET_NS := 6000000
+VSYNC_EVENT_PHASE_OFFSET_NS := 2000000
 
 # Extended Filesystem Support
 TARGET_EXFAT_DRIVER := exfat
@@ -232,6 +240,7 @@ BOARD_ROOT_EXTRA_FOLDERS := bt_firmware dsp firmware persist
 
 # RIL
 TARGET_RIL_VARIANT := caf
+PROTOBUF_SUPPORTED := true
 
 # SELinux
 include device/qcom/sepolicy/sepolicy.mk
