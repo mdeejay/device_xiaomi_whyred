@@ -352,18 +352,14 @@ PRODUCT_PACKAGES += \
 
 PRODUCT_PACKAGES += \
 	init.class_main.sh \
-	init.crda.sh \
 	init.mdm.sh \
 	init.qcom.class_core.sh \
-	init.qcom.coex.sh \
 	init.qcom.early_boot.sh \
 	init.qcom.post_boot.sh \
-	init.qcom.sdio.sh \
 	init.qcom.sensors.sh \
 	init.qcom.sh \
 	init.qcom.syspart_fixup.sh \
 	init.qcom.usb.sh \
-	init.qcom.wifi.sh \
 	init.qti.ims.sh \
 	init.qti.qseecomd.sh
 
@@ -457,3 +453,4 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/configs/wifi/p2p_supplicant_overlay.conf:$(TARGET_COPY_OUT_VENDOR)/etc/wifi/p2p_supplicant_overlay.conf \
     $(LOCAL_PATH)/configs/wifi/wpa_supplicant_overlay.conf:$(TARGET_COPY_OUT_VENDOR)/etc/wifi/wpa_supplicant_overlay.conf \
     $(LOCAL_PATH)/configs/wifi/WCNSS_qcom_cfg.ini:$(TARGET_COPY_OUT_VENDOR)/etc/wifi/WCNSS_qcom_cfg.ini
+
