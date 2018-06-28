@@ -28,9 +28,15 @@
    IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#include <cstdio>
+#include <cstdlib>
+#include <fstream>
+#include <stdlib.h>
+#include <stdio.h>
+#include <sys/sysinfo.h>
+#include <unistd.h>
 
 #include <android-base/file.h>
+#include <android-base/logging.h>
 #include <android-base/properties.h>
 #include <android-base/strings.h>
 
@@ -80,7 +86,7 @@ static void init_setup_model_properties()
     std::ifstream fin;
     std::string buf;
 
-    std::string product = property_get("ro.product.name");
+    std::string product = GetProperty("ro.product.name", "");
     if (product.find("whyred") == std::string::npos)
         return;
 
