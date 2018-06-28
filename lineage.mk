@@ -29,7 +29,6 @@ TARGET_VENDOR := Xiaomi
 PRODUCT_DEVICE := whyred
 PRODUCT_NAME := lineage_whyred
 PRODUCT_BRAND := Xiaomi
-PRODUCT_MODEL := Redmi Note 5
 PRODUCT_MANUFACTURER := Xiaomi
 BOARD_VENDOR := Xiaomi
 
@@ -41,3 +40,6 @@ PRODUCT_BUILD_PROP_OVERRIDES += \
 
 # Set BUILD_FINGERPRINT variable to be picked up by both system and vendor build.prop
 BUILD_FINGERPRINT := xiaomi/whyred/whyred:8.1.0/OPM1.171019.011/8.6.14:user/release-keys
+
+PRODUCT_SYSTEM_PROPERTY_BLACKLIST += \
+    ro.product.model
