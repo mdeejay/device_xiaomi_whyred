@@ -92,7 +92,7 @@ static void init_setup_model_properties()
 
     fin.open("/proc/cmdline");
     while (std::getline(fin, buf, ' '))
-        if (buf.find("product.region") != std::string::npos)
+        if (buf.find("androidboot.hwc") != std::string::npos)
             break;
     fin.close();
 
