@@ -86,7 +86,7 @@ static void init_setup_model_properties()
     std::ifstream fin;
     std::string buf;
 
-    std::string product = GetProperty("ro.product.name", "");
+    std::string product = GetProperty("ro.product.device", "");
     if (product.find("whyred") == std::string::npos)
         return;
 
